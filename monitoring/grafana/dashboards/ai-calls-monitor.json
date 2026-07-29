@@ -1,0 +1,130 @@
+{
+  "dashboard": {
+    "uid": "ai-calls-monitor",
+    "title": "AI 调用监控",
+    "description": "基于 Micrometer 指标的 AI 调用监控：每日调用次数、Token 消耗、失败率、P95 延迟",
+    "tags": ["ai", "monitoring"],
+    "timezone": "browser",
+    "schemaVersion": 38,
+    "refresh": "30s",
+    "panels": [
+      {
+        "id": 1,
+        "title": "每小时 AI 调用次数",
+        "type": "timeseries",
+        "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+        "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "sum(increase(ai_calls_total_total[1h])) by (capability)",
+            "legendFormat": "{{capability}}",
+            "refId": "A",
+            "interval": "1h"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "palette-classic"},
+            "unit": "short",
+            "custom": {"lineWidth": 2, "fillOpacity": 15, "spanNulls": true, "drawStyle": "bars"}
+          }
+        },
+        "options": {
+          "legend": {"showLegend": true, "placement": "bottom", "displayMode": "table"},
+          "tooltip": {"mode": "multi"}
+        }
+      },
+      {
+        "id": 2,
+        "title": "Token 消耗趋势",
+        "type": "timeseries",
+        "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+        "gridPos": {"x": 12, "y": 0, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "sum(increase(ai_tokens_used_total[1h])) by (capability)",
+            "legendFormat": "{{capability}}",
+            "refId": "A",
+            "interval": "1h"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "palette-classic"},
+            "unit": "short",
+            "custom": {"lineWidth": 2, "fillOpacity": 10, "spanNulls": true}
+          }
+        },
+        "options": {
+          "legend": {"showLegend": true, "placement": "bottom"},
+          "tooltip": {"mode": "multi"}
+        }
+      },
+      {
+        "id": 3,
+        "title": "AI 调用成功/失败比 (7d)",
+        "type": "piechart",
+        "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+        "gridPos": {"x": 0, "y": 8, "w": 8, "h": 7},
+        "targets": [
+          {
+            "expr": "sum(increase(ai_calls_total_total{status=\"SUCCESS\"}[7d])) or vector(0)",
+            "legendFormat": "成功",
+            "refId": "A"
+          },
+          {
+            "expr": "sum(increase(ai_calls_total_total{status=\"FAILED\"}[7d])) or vector(0)",
+            "legendFormat": "失败",
+            "refId": "B"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "fixed"},
+            "unit": "short"
+          },
+          "overrides": [
+            {"matcher": {"id": "byName", "options": "成功"}, "properties": [{"id": "color", "value": {"fixedColor": "#73BF69", "mode": "fixed"}}]},
+            {"matcher": {"id": "byName", "options": "失败"}, "properties": [{"id": "color", "value": {"fixedColor": "#F2495C", "mode": "fixed"}}]}
+          ]
+        },
+        "options": {
+          "displayLabels": ["percent", "name"],
+          "legend": {"showLegend": true, "placement": "right", "values": ["value"]},
+          "pieType": "donut"
+        }
+      },
+      {
+        "id": 4,
+        "title": "P95 响应延迟",
+        "type": "timeseries",
+        "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+        "gridPos": {"x": 8, "y": 8, "w": 16, "h": 7},
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(ai_calls_latency_seconds_bucket[5m])) by (le, capability)) * 1000",
+            "legendFormat": "{{capability}} P95",
+            "refId": "A"
+          },
+          {
+            "expr": "histogram_quantile(0.50, sum(rate(ai_calls_latency_seconds_bucket[5m])) by (le, capability)) * 1000",
+            "legendFormat": "{{capability}} P50",
+            "refId": "B"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "ms",
+            "color": {"mode": "palette-classic"},
+            "custom": {"lineWidth": 2, "fillOpacity": 5, "spanNulls": true}
+          }
+        },
+        "options": {
+          "legend": {"showLegend": true, "placement": "bottom", "displayMode": "table"},
+          "tooltip": {"mode": "multi"}
+        }
+      }
+    ]
+  },
+  "overwrite": true
+}

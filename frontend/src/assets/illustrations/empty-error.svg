@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none" role="img" aria-label="加载失败">
+  <!-- Loading error: gentle cloud + warning triangle (NOT scary red, use warm orange/cyan) -->
+  <circle cx="55" cy="70" r="3" fill="#f56c6c" opacity="0.25"/>
+  <circle cx="345" cy="60" r="4" fill="#4cc9f0" opacity="0.3"/>
+  <circle cx="60" cy="240" r="2.5" fill="#4361ee" opacity="0.3"/>
+  <!-- Rounded cloud outline -->
+  <path d="M130 200
+           Q96 200 86 172
+           Q66 166 66 142
+           Q66 120 90 114
+           Q96 86 128 82
+           Q144 62 174 72
+           Q200 58 224 78
+           Q260 76 272 108
+           Q304 114 308 144
+           Q322 158 312 182
+           Q302 200 274 198
+           Q260 218 232 214
+           L130 214 Z"
+        stroke="#4361ee" stroke-width="1.5" stroke-linejoin="round" fill="rgba(67,97,238,0.025)"/>
+  <!-- Warning triangle inside cloud (exclamation mark) -->
+  <path d="M186 116
+           L142 188
+           L230 188
+           L186 116 Z"
+        stroke="#ed6c02" stroke-width="1.5" stroke-linejoin="round" fill="rgba(237,108,2,0.06)"/>
+  <path d="M186 140 V164" stroke="#ed6c02" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="186" cy="178" r="2.2" fill="#ed6c02"/>
+  <!-- Small refresh arrows (gentle invite to retry) -->
+  <g transform="translate(278,158)" stroke="#4cc9f0" stroke-width="1.5" stroke-linecap="round" fill="none">
+    <path d="M0 0 L0 -12 A16 16 0 1 1 -16 4"/>
+    <path d="M-5 -17 L0 -12 L5 -17"/>
+  </g>
+  <!-- Soft connection cable drop (visual hint: network issue) -->
+  <path d="M90 220 Q130 250 170 232 Q210 214 250 240 Q290 266 330 236"
+        stroke="#4361ee" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="2 5" opacity="0.3"/>
+  <!-- Bottom wordmark -->
+  <g transform="translate(200,282)" opacity="0.55">
+    <text x="0" y="0" text-anchor="middle"
+          font-family="system-ui, -apple-system, Segoe UI, sans-serif"
+          font-size="11" font-weight="600" fill="#4361ee" letter-spacing="3">
+      CHECK CONNECTION · RETRY
+    </text>
+  </g>
+</svg>

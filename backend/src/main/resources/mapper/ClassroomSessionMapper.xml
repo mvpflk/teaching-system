@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.school.teaching.mapper.ClassroomSessionMapper">
+
+    <!-- 原子投票：使用 MySQL JSON_SET 避免并发 read-modify-write 竞争 -->
+    <update id="incrementPollVote">
+        UPDATE classroom_sessions
+        SET poll_data = JSON_SET(
+            poll_data,
+            CONCAT('$.options[', #{optionIndex, jdbcType=INTEGER}, '].count'),
+            COALESCE(
+                JSON_EXTRACT(poll_data, CONCAT('$.options[', #{optionIndex, jdbcType=INTEGER}, '].count')),
+                0
+            ) + 1,
+            '$.totalVotes',
+            COALESCE(JSON_EXTRACT(poll_data, '$.totalVotes'), 0) + 1
+        )
+        WHERE id = #{sessionId, jdbcType=BIGINT}
+          AND status = 'ACTIVE'
+    </update>
+
+</mapper>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none" role="img" aria-label="搜索无结果">
+  <!-- Empty search: magnifier + drifting docs -->
+  <circle cx="70" cy="245" r="3" fill="#4cc9f0" opacity="0.4"/>
+  <circle cx="340" cy="45" r="4" fill="#4361ee" opacity="0.3"/>
+  <circle cx="55" cy="65" r="2" fill="#4cc9f0" opacity="0.3"/>
+  <!-- Magnifier glass -->
+  <circle cx="180" cy="140" r="56"
+          stroke="#4361ee" stroke-width="1.5" fill="rgba(67,97,238,0.03)"/>
+  <circle cx="180" cy="140" r="40"
+          stroke="#4361ee" stroke-width="1.5" stroke-dasharray="1 4" opacity="0.35"/>
+  <!-- Inner focus crosshair -->
+  <path d="M180 104 V120 M180 160 V176 M144 140 H160 M200 140 H216"
+        stroke="#4cc9f0" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Magnifier handle -->
+  <path d="M222 182 L264 224"
+        stroke="#4361ee" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="264" cy="224" r="4" fill="rgba(67,97,238,0.12)" stroke="#4361ee" stroke-width="1.5"/>
+  <!-- Floating documents (subtle movement indication) -->
+  <g transform="translate(270,90)">
+    <rect width="46" height="54" rx="3" transform="rotate(12)"
+          stroke="#4cc9f0" stroke-width="1.2" fill="rgba(76,201,240,0.03)"/>
+    <path d="M-2 20 L32 18 M-2 30 L30 28 M-2 40 L26 38"
+          transform="rotate(12)" stroke="#4361ee" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+  </g>
+  <g transform="translate(90,60)">
+    <rect width="40" height="48" rx="3" transform="rotate(-10)"
+          stroke="#4cc9f0" stroke-width="1.2" fill="rgba(76,201,240,0.02)"/>
+    <path d="M-2 18 L28 16 M-2 28 L24 26 M-2 38 L22 36"
+          transform="rotate(-10)" stroke="#4361ee" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+  </g>
+  <!-- Result "crossed zero" -->
+  <g transform="translate(180,250)">
+    <text x="0" y="0" text-anchor="middle"
+          font-family="system-ui, -apple-system, Segoe UI, sans-serif"
+          font-size="13" font-weight="500" fill="#909399" letter-spacing="2">
+      0 RESULT
+    </text>
+  </g>
+</svg>

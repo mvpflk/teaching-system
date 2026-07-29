@@ -1,0 +1,233 @@
+/* ============================================================
+   Typing Theme System — CSS Custom Properties + Animations
+   打字模块专属视觉主题：打字机风格 / 暗色默认 / 动画系统
+   ============================================================ */
+
+/* ── 打字区配色（Catppuccin Mocha 色板） ── */
+:root {
+  --typing-bg: #1e1e2e;
+  --typing-surface: #313244;
+  --typing-text: #cdd6f4;
+  --typing-correct: #a6e3a1;
+  --typing-incorrect: #f38ba8;
+  --typing-incorrect-bg: rgba(243, 139, 168, 0.25);
+  --typing-current: #f9e2af;
+  --typing-current-bg: rgba(249, 226, 175, 0.2);
+  --typing-pending: #6c7086;
+  --typing-line-number: #585b70;
+  --typing-border: #45475a;
+  --typing-cursor: #89b4fa;
+  --typing-stats-bg: #313244;
+  --sk-shimmer-color: rgba(255, 255, 255, 0.4);
+  --typing-gutter-bg: rgba(0, 0, 0, 0.08);
+}
+
+/* ── 亮色主题 ── */
+[data-theme='light'] {
+  --typing-bg: #faf9f6;
+  --typing-surface: #f0efeb;
+  --typing-text: #2c2c2c;
+  --typing-correct: #40a02b;
+  --typing-incorrect: #d20f39;
+  --typing-incorrect-bg: rgba(210, 15, 57, 0.12);
+  --typing-current: #df8e1d;
+  --typing-current-bg: rgba(223, 142, 29, 0.15);
+  --typing-pending: #9ca0b0;
+  --typing-line-number: #acb0be;
+  --typing-border: #d2d0cc;
+  --typing-cursor: #1e66f5;
+  --typing-stats-bg: #e6e4df;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
+    --typing-bg: #faf9f6;
+    --typing-surface: #f0efeb;
+    --typing-text: #2c2c2c;
+    --typing-correct: #40a02b;
+    --typing-incorrect: #d20f39;
+    --typing-incorrect-bg: rgba(210, 15, 57, 0.12);
+    --typing-current: #df8e1d;
+    --typing-current-bg: rgba(223, 142, 29, 0.15);
+    --typing-pending: #9ca0b0;
+    --typing-line-number: #acb0be;
+    --typing-border: #d2d0cc;
+    --typing-cursor: #1e66f5;
+    --typing-stats-bg: #e6e4df;
+    --sk-shimmer-color: rgba(0, 0, 0, 0.08);
+    --typing-gutter-bg: rgba(0, 0, 0, 0.06);
+  }
+}
+
+/* ── 逐字动画 ── */
+@keyframes char-bounce {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes char-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-3px);
+  }
+  40% {
+    transform: translateX(3px);
+  }
+  60% {
+    transform: translateX(-2px);
+  }
+  80% {
+    transform: translateX(2px);
+  }
+}
+
+@keyframes cursor-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(137, 180, 250, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(137, 180, 250, 0.15);
+  }
+}
+
+/* ── 减少动画 ── */
+@media (prefers-reduced-motion: reduce) {
+  .char-correct,
+  .char-incorrect,
+  .char-current {
+    animation: none !important;
+  }
+}
+
+/* ── 通用打字区样式 ── */
+.typing-theme {
+  background: var(--typing-bg);
+  color: var(--typing-text);
+  border-color: var(--typing-border);
+}
+
+.typing-theme .text-panel {
+  background: var(--typing-surface);
+  border-color: var(--typing-border);
+  position: relative;
+  counter-reset: line;
+}
+
+/* .text-display 的结构属性（font-size/line-height/font-family/letter-spacing）由各组件 scoped style 各自控制，此处仅注入色值 */
+.typing-theme .text-display {
+  color: var(--typing-text);
+}
+
+.typing-theme .char-correct {
+  color: var(--typing-correct);
+  animation: char-bounce 150ms ease-out;
+}
+
+.typing-theme .char-incorrect {
+  color: var(--typing-text);
+  background: var(--typing-incorrect-bg);
+  border-radius: 2px;
+  animation: char-shake 200ms ease-out;
+}
+
+.typing-theme .char-current {
+  background: var(--typing-current-bg);
+  border-bottom: 2px solid var(--typing-cursor);
+  border-radius: 2px;
+  animation: cursor-pulse 1.2s ease-in-out infinite;
+}
+
+.typing-theme .char-pending {
+  color: var(--typing-pending);
+}
+
+.typing-theme .typing-input {
+  background: var(--typing-surface);
+  color: var(--typing-text);
+  border-color: var(--typing-border);
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Courier New', monospace;
+  caret-color: var(--typing-cursor);
+}
+
+.typing-theme .typing-input:focus {
+  border-color: var(--typing-cursor);
+  box-shadow: 0 0 0 2px rgba(137, 180, 250, 0.2);
+}
+
+.typing-theme .stats-bar .stat {
+  background: var(--typing-stats-bg);
+  border-color: var(--typing-border);
+}
+
+.typing-theme .ranking-sidebar {
+  background: var(--typing-surface);
+  border-color: var(--typing-border);
+}
+
+/* ── 移动端适配 ── */
+/* .text-display 的移动端尺寸由各组件 scoped style 各自控制（TypingTextDisplay: 768px, CompetitionReplay: 768px） */
+@media (max-width: 480px) {
+  .typing-theme .typing-input {
+    font-size: 17px;
+  }
+}
+
+/* ── 骨架屏动画（各页面共享） ── */
+@keyframes sk-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+.sk-line {
+  height: 14px;
+  background: var(--bg-secondary, #e5e7eb);
+  border-radius: var(--radius-xs, 4px);
+  position: relative;
+  overflow: hidden;
+}
+.sk-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--sk-shimmer-color), transparent);
+  animation: sk-shimmer 1.6s infinite;
+}
+.sk-row {
+  display: flex;
+  gap: 16px;
+  padding: 16px 12px;
+  border-bottom: 1px solid var(--border-light);
+  align-items: center;
+}
+
+/* ── 行号（桌面端≥768px显示） ── */
+@media (min-width: 768px) {
+  .typing-theme .text-display.line-numbered {
+    padding-left: 48px;
+    position: relative;
+  }
+  .typing-theme .text-display.line-numbered::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    background: var(--typing-gutter-bg);
+    border-right: 1px solid var(--typing-border);
+  }
+}

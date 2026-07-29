@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!-- 排除 Lombok 生成的代码 -->
+    <Match>
+        <Class name="~.*\$_.*"/>
+        <Bug pattern="NM_SAME_SIMPLE_NAME_AS_SUPERCLASS"/>
+    </Match>
+
+    <!-- 排除实体类（Lombok @Data 生成 equals/hashCode） -->
+    <Match>
+        <Class name="~com\.school\.teaching\.entity\..*"/>
+        <Bug pattern="HE_EQUALS_NO_HASHCODE,HE_HASHCODE_USE_OBJECT_EQUALS"/>
+    </Match>
+
+    <!-- 排除测试类 -->
+    <Match>
+        <Class name="~.*Test$|~.*Tests$"/>
+    </Match>
+
+    <!-- 排除 DTO/VO 类 -->
+    <Match>
+        <Class name="~.*Dto$|~.*VO$|~.*Request$|~.*Response$"/>
+    </Match>
+
+    <!-- 排除配置类 -->
+    <Match>
+        <Class name="~.*Config$|~.*Configuration$"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+</FindBugsFilter>

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none" role="img" aria-label="开始使用">
+  <!-- Onboarding / getting started: rocket + 3 milestone steps -->
+  <circle cx="50" cy="50" r="3" fill="#4cc9f0" opacity="0.4"/>
+  <circle cx="350" cy="250" r="4" fill="#7209b7" opacity="0.25"/>
+  <circle cx="60" cy="240" r="2" fill="#4361ee" opacity="0.3"/>
+  <circle cx="336" cy="60" r="3" fill="#4361ee" opacity="0.3"/>
+  <!-- 3 Milestone steps (ground base) -->
+  <g transform="translate(70,220)">
+    <!-- Step 1 -->
+    <rect x="0" y="0" width="60" height="36" rx="6"
+          stroke="#4cc9f0" stroke-width="1.4" fill="rgba(76,201,240,0.06)"/>
+    <circle cx="14" cy="18" r="8" stroke="#4cc9f0" stroke-width="1.2"/>
+    <path d="M11 18 L13 20 L18 14" stroke="#4cc9f0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="30" y="22" font-size="11" font-weight="600" fill="#4cc9f0" font-family="system-ui" letter-spacing="0.5">01</text>
+    <path d="M60 18 L80 18" stroke="#4361ee" stroke-width="1.2" stroke-dasharray="2 3" stroke-linecap="round"/>
+    <!-- Step 2 -->
+    <rect x="80" y="0" width="60" height="36" rx="6"
+          stroke="#4361ee" stroke-width="1.4" fill="rgba(67,97,238,0.06)"/>
+    <circle cx="94" cy="18" r="8" stroke="#4361ee" stroke-width="1.2"/>
+    <text x="103" y="22" font-size="11" font-weight="600" fill="#4361ee" font-family="system-ui" letter-spacing="0.5">02</text>
+    <path d="M140 18 L160 18" stroke="#7209b7" stroke-width="1.2" stroke-dasharray="2 3" stroke-linecap="round"/>
+    <!-- Step 3 -->
+    <rect x="160" y="0" width="60" height="36" rx="6"
+          stroke="#7209b7" stroke-width="1.4" fill="rgba(114,9,183,0.06)"/>
+    <polygon points="168,18 174,24 186,13" stroke="#7209b7" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+    <text x="183" y="22" font-size="11" font-weight="600" fill="#7209b7" font-family="system-ui" letter-spacing="0.5">03</text>
+  </g>
+  <!-- Rocket launching from step 3 (milestone 200, ~160) -->
+  <g transform="translate(240,160) rotate(-18)">
+    <!-- Rocket body -->
+    <path d="M0 -60
+             L12 -22
+             L12 10
+             Q12 18 0 18
+             Q-12 18 -12 10
+             L-12 -22 Z"
+          stroke="#4361ee" stroke-width="1.5" stroke-linejoin="round" fill="rgba(67,97,238,0.06)"/>
+    <!-- Rocket tip -->
+    <path d="M0 -60 Q-8 -40 0 -30 Q8 -40 0 -60 Z" stroke="#4361ee" stroke-width="1.4" fill="#4361ee" opacity="0.85"/>
+    <!-- Window -->
+    <circle cx="0" cy="-10" r="6" stroke="#4cc9f0" stroke-width="1.3" fill="rgba(76,201,240,0.12)"/>
+    <!-- Fins -->
+    <path d="M-12 2 L-24 18 L-12 10 Z" stroke="#4361ee" stroke-width="1.3" fill="rgba(67,97,238,0.08)" stroke-linejoin="round"/>
+    <path d="M12 2 L24 18 L12 10 Z" stroke="#4361ee" stroke-width="1.3" fill="rgba(67,97,238,0.08)" stroke-linejoin="round"/>
+    <!-- Flames / exhaust -->
+    <path d="M-6 18 Q0 40 6 18 Q8 28 4 34 Q0 42 -4 34 Q-8 28 -6 18 Z"
+          stroke="#ed6c02" stroke-width="1.3" fill="rgba(237,108,2,0.12)" stroke-linejoin="round"/>
+    <path d="M-3 22 Q0 32 3 22" stroke="#f56c6c" stroke-width="1" fill="none" stroke-linecap="round"/>
+    <!-- Velocity lines (movement) -->
+    <path d="M-30 -32 L-18 -32 M-28 -20 L-16 -20 M-34 -44 L-22 -44"
+          stroke="#7209b7" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+  </g>
+  <!-- Celebratory confetti dots -->
+  <circle cx="110" cy="150" r="2" fill="#4cc9f0"/>
+  <circle cx="140" cy="120" r="1.8" fill="#4361ee"/>
+  <circle cx="170" cy="90" r="2.2" fill="#7209b7" opacity="0.8"/>
+  <circle cx="300" cy="110" r="2" fill="#ed6c02" opacity="0.7"/>
+  <circle cx="280" cy="70" r="1.8" fill="#4cc9f0"/>
+  <circle cx="200" cy="50" r="2.2" fill="#4361ee"/>
+  <!-- Ground shadow -->
+  <ellipse cx="200" cy="268" rx="90" ry="5" fill="#4361ee" opacity="0.08"/>
+</svg>

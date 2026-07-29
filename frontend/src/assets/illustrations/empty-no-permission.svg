@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none" role="img" aria-label="暂无权限">
+  <!-- No permission: shield + locked keyhole (secure, not scary) -->
+  <circle cx="60" cy="60" r="3" fill="#4361ee" opacity="0.3"/>
+  <circle cx="340" cy="240" r="4" fill="#ed6c02" opacity="0.3"/>
+  <circle cx="345" cy="70" r="2.5" fill="#4cc9f0" opacity="0.35"/>
+  <!-- Shield outline -->
+  <path d="M200 55
+           L130 78
+           Q130 158 200 240
+           Q270 158 270 78
+           L200 55 Z"
+        stroke="#ed6c02" stroke-width="1.5" stroke-linejoin="round" fill="rgba(237,108,2,0.035)"/>
+  <!-- Shield inner chevron pattern -->
+  <path d="M155 108 L200 132 L245 108 M160 138 L200 164 L240 138 M166 168 L200 194 L234 168"
+        stroke="#ed6c02" stroke-width="1.2" stroke-linejoin="round" opacity="0.28"/>
+  <!-- Lock in shield center -->
+  <circle cx="200" cy="190" r="26" fill="#fff" stroke="#ed6c02" stroke-width="1.5"/>
+  <circle cx="200" cy="190" r="4" fill="#ed6c02"/>
+  <path d="M200 194 V206" stroke="#ed6c02" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Lock shackle -->
+  <path d="M186 172
+           V160
+           Q186 148 200 148
+           Q214 148 214 160
+           V172"
+        stroke="#4361ee" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  <!-- Gentle helper arrows: ask administrator (person silhouette + chat bubble) -->
+  <g transform="translate(90,210)">
+    <circle cx="14" cy="14" r="10" stroke="#4361ee" stroke-width="1.5" fill="rgba(67,97,238,0.04)"/>
+    <path d="M3 40 Q14 28 25 40 Z" stroke="#4361ee" stroke-width="1.5" stroke-linejoin="round" fill="rgba(67,97,238,0.04)"/>
+    <path d="M42 28 L58 28 L58 38 L48 44 L42 38 Z"
+          stroke="#4cc9f0" stroke-width="1.2" fill="rgba(76,201,240,0.05)" stroke-linejoin="round"/>
+  </g>
+  <!-- Brand text: "ACCESS" wordmark -->
+  <g transform="translate(200,272)" opacity="0.5">
+    <text x="0" y="0" text-anchor="middle"
+          font-family="system-ui, -apple-system, Segoe UI, sans-serif"
+          font-size="11" font-weight="600" fill="#ed6c02" letter-spacing="4">
+      SECURE · CONTACT ADMIN
+    </text>
+  </g>
+</svg>

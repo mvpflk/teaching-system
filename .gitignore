@@ -1,0 +1,59 @@
+# 忽略 IDE 缓存
+.idea/
+*.iml
+
+# 忽略日志
+*.log
+logs/
+
+# 忽略依赖
+node_modules/
+frontend/node_modules/
+# dist 体积过大，改为单独 scp
+frontend/dist/
+
+# 忽略后端编译临时文件（jar 体积过大，改为单独 scp）
+backend/target/
+backend/BOOT-INF/
+*.class
+*.war
+*.ear
+*.bat
+
+# 前端构建产物打包（体积过大，改为单独 scp）
+frontend-dist.tar.gz
+*.tar.gz
+
+# 忽略上传文件
+backend/uploads/
+
+# 忽略工作树
+.worktrees/
+.claude/worktrees/
+.reasonix/
+reasonix.toml
+.superpowers/
+
+# 忽略系统文件
+.DS_Store
+Thumbs.db
+# 忽略环境变量文件（含生产凭据）
+.env
+.env.production
+
+# 忽略 review 门禁（内容随部署变化）
+.review
+
+# 忽略 Playwright 浏览器测试临时文件
+.playwright-mcp/
+
+# 忽略临时文件
+tmp/
+tmp_*.txt
+# 忽略根目录截图
+/*.png
+# 忽略快照文件
+exam-questions-snapshot.md
+
+# 忽略运行时锁文件
+.mimocode/

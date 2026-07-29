@@ -1,0 +1,20 @@
+# 本地开发配置 — 无 Redis 环境，连远程 DB
+spring:
+  main:
+    lazy-initialization: true
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
+  cache:
+    type: simple
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/teaching_system?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8
+    username: root
+    password: root123
+
+cors:
+  allowed-origins: http://localhost:3000,http://localhost:3001,http://localhost:3002,http://192.168.2.201:3000,http://172.27.64.1:3000
+
+jwt:
+  secret: local-dev-jwt-secret-key-2026-teaching-system-min-32-chars

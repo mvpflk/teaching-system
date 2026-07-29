@@ -1,0 +1,6 @@
+node_modules/
+dist/
+*.min.js
+coverage/
+.DS_Store
+eslint-report.txt

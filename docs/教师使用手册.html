@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>教学管理系统 — 教师使用手册</title>
+<style>
+  :root { --primary: #4361ee; --primary-light: #eef1ff; --bg: #fff; --text: #1a1d29; --text-secondary: #606266; --border: #e4e7ed; --success: #67c23a; --warning: #e6a23c; --danger: #f56c6c; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif; color: var(--text); background: #f5f7fa; line-height: 1.8; }
+  .header { background: linear-gradient(135deg, var(--primary), #3a56d4); color: #fff; padding: 40px 0; text-align: center; }
+  .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .header p { font-size: 15px; opacity: 0.9; }
+  .container { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+  .toc { background: var(--bg); border-radius: 12px; padding: 24px 32px; margin: 24px auto; max-width: 820px; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  .toc h2 { font-size: 16px; color: var(--text-secondary); margin-bottom: 12px; }
+  .toc a { display: block; padding: 6px 0; color: var(--primary); text-decoration: none; font-size: 14px; border-bottom: 1px solid var(--border); }
+  .toc a:last-child { border-bottom: none; }
+  .toc a:hover { text-decoration: underline; }
+  .section { background: var(--bg); border-radius: 12px; padding: 28px 32px; margin: 16px auto; max-width: 820px; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  .section h2 { font-size: 20px; color: var(--primary); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--primary-light); }
+  .section h3 { font-size: 16px; margin: 20px 0 8px; }
+  .section h4 { font-size: 14px; margin: 16px 0 6px; color: var(--text-secondary); }
+  .section p { margin: 8px 0; font-size: 14px; }
+  .section ul, .section ol { margin: 8px 0 8px 20px; font-size: 14px; }
+  .section li { margin: 4px 0; }
+  .section strong { color: var(--text); }
+  .table-wrap { overflow-x: auto; margin: 12px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { padding: 10px 14px; text-align: left; border: 1px solid var(--border); }
+  th { background: var(--primary-light); font-weight: 600; }
+  .tip { background: #f0f9eb; border-left: 4px solid var(--success); padding: 12px 16px; margin: 12px 0; border-radius: 6px; font-size: 14px; }
+  .warn { background: #fef0f0; border-left: 4px solid var(--danger); padding: 12px 16px; margin: 12px 0; border-radius: 6px; font-size: 14px; }
+  .info { background: var(--primary-light); border-left: 4px solid var(--primary); padding: 12px 16px; margin: 12px 0; border-radius: 6px; font-size: 14px; }
+  .step { display: flex; gap: 12px; margin: 12px 0; }
+  .step-num { flex-shrink: 0; width: 28px; height: 28px; background: var(--primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; }
+  .step-body { flex: 1; }
+  .step-body p { margin: 2px 0; }
+  kbd { background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; padding: 1px 6px; font-size: 13px; font-family: inherit; }
+  code { background: #f5f5f5; padding: 1px 5px; border-radius: 3px; font-size: 13px; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+  @media print {
+    body { background: #fff; }
+    .header { background: var(--primary) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .section { box-shadow: none; border: 1px solid var(--border); }
+    th { background: var(--primary-light) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .tip, .warn, .info { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .step-num { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+  @media (max-width: 640px) {
+    .section { padding: 16px; }
+    .toc { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>教学管理系统 — 教师使用手册</h1>
+  <p>面向一线教师 · 无需任何计算机专业知识</p>
+</div>
+
+<div class="toc">
+  <h2>📖 目录</h2>
+  <a href="#login">一、登录系统</a>
+  <a href="#task">二、布置作业 / 发布任务</a>
+  <a href="#exam">三、创建在线考试</a>
+  <a href="#grade">四、批改学生作业</a>
+  <a href="#stats">五、查看成绩分析</a>
+  <a href="#ai">六、使用 AI 辅助出题</a>
+  <a href="#report">七、查看学生学情报告</a>
+  <a href="#class">八、管理班级和学生</a>
+  <a href="#faq">九、常见问题</a>
+  <a href="#roles">附录：各角色登录入口</a>
+</div>
+
+<section class="section" id="login">
+  <h2>一、登录系统</h2>
+
+  <h3>1.1 打开系统</h3>
+  <p>在浏览器地址栏输入学校给你的网址，例如 <code>http://xxzx.edu.cn</code> 或 <code>http://192.168.1.100</code>。</p>
+
+  <h3>1.2 输入账号密码</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>你是</th><th>账号由谁提供</th><th>默认密码</th></tr>
+    <tr><td>教师</td><td>系统管理员创建</td><td><code>123456</code>（首次登录后请修改）</td></tr>
+  </table>
+  </div>
+
+  <h3>1.3 修改密码</h3>
+  <p>登录后，点击右上角你的名字 → <strong>修改密码</strong> → 输入旧密码和新密码。</p>
+</section>
+
+<section class="section" id="task">
+  <h2>二、布置作业 / 发布任务</h2>
+
+  <h3>2.1 创建新作业</h3>
+  <ol>
+    <li>点击左侧菜单 <strong>任务管理</strong> → <strong>发布任务</strong></li>
+    <li>点击右上角 <strong>+ 新建任务</strong></li>
+    <li>填写任务信息：</li>
+  </ol>
+  <div class="table-wrap">
+  <table>
+    <tr><th>字段</th><th>怎么填</th></tr>
+    <tr><td>任务标题</td><td>例如"第三章 课后练习"</td></tr>
+    <tr><td>学科</td><td>选择你教的科目</td></tr>
+    <tr><td>任务类型</td><td>选"课后作业"</td></tr>
+    <tr><td>班级</td><td>勾选要发布的班级（可以多选）</td></tr>
+    <tr><td>截止时间</td><td>设置学生最晚提交时间</td></tr>
+    <tr><td>题目</td><td>可以手动录入，也可以用 AI 自动生成</td></tr>
+  </table>
+  </div>
+  <p>4. 点击 <strong>保存为草稿</strong>（还可以修改）或 <strong>直接发布</strong>（学生立即收到）</p>
+
+  <h3>2.2 发布草稿</h3>
+  <p>在任务列表中，找到状态为"草稿"的任务，点击右侧 <strong>发布</strong> 按钮。</p>
+
+  <h3>2.3 查看哪些学生交了</h3>
+  <p>在任务列表中点击任务标题 → <strong>提交情况</strong> 标签页：<br>
+  <span style="color:var(--success)">●</span> 绿色 = 已提交 &nbsp;
+  <span style="color:var(--warning)">●</span> 黄色 = 未提交 &nbsp;
+  <span style="color:var(--danger)">●</span> 红色 = 逾期未交</p>
+  <p>点击 <strong>提醒未交学生</strong>，系统会自动给这些学生发通知。</p>
+</section>
+
+<section class="section" id="exam">
+  <h2>三、创建在线考试</h2>
+
+  <h3>3.1 新建考试</h3>
+  <ol>
+    <li><strong>任务管理</strong> → <strong>发布任务</strong> → <strong>+ 新建任务</strong></li>
+    <li>任务类型选 <strong>考试</strong></li>
+    <li>设置考试时长（如 45 分钟）</li>
+  </ol>
+
+  <h3>3.2 添加题目</h3>
+  <p><strong>方式 A：从题库选（推荐）</strong></p>
+  <ul>
+    <li>点击 <strong>从题库选题</strong></li>
+    <li>按学科、知识点、题型筛选</li>
+    <li>勾选需要的题目 → <strong>加入试卷</strong></li>
+  </ul>
+
+  <p><strong>方式 B：AI 自动出题</strong></p>
+  <ul>
+    <li>点击 <strong>AI 智能出题</strong></li>
+    <li>输入知识点（如"函数的基本性质"）</li>
+    <li>选择题型和数量 → 点击 <strong>生成</strong> → 预览 → <strong>确认添加</strong></li>
+  </ul>
+
+  <p><strong>方式 C：手动录入</strong></p>
+  <ul>
+    <li>点击 <strong>+ 添加题目</strong></li>
+    <li>选择题型（单选/多选/判断/填空/简答）</li>
+    <li>输入题目、选项、答案、解析</li>
+  </ul>
+
+  <h3>3.3 考试设置</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>设置项</th><th>说明</th></tr>
+    <tr><td>切屏警告次数</td><td>学生切出考试页面几次算违规（建议 3 次）</td></tr>
+    <tr><td>自动交卷</td><td>到时间后系统自动提交</td></tr>
+    <tr><td>显示成绩</td><td>考完是否立即让学生看到分数</td></tr>
+    <tr><td>防作弊模式</td><td>开启后禁止复制粘贴、切屏警告</td></tr>
+  </table>
+  </div>
+
+  <h3>3.4 发布考试</h3>
+  <p>保存后点击 <strong>发布</strong>，学生在规定时间内登录系统就能看到考试。</p>
+</section>
+
+<section class="section" id="grade">
+  <h2>四、批改学生作业</h2>
+
+  <h3>4.1 客观题自动批改</h3>
+  <p>单选、多选、判断、填空等客观题，系统会在学生提交时<strong>自动批改</strong>，不需要你动手。</p>
+
+  <h3>4.2 主观题手动批改</h3>
+  <ol>
+    <li><strong>任务管理</strong> → <strong>任务列表</strong> → 点击任务标题</li>
+    <li>进入 <strong>待评分</strong> 标签页</li>
+    <li>点击学生名字，看到学生答案和参考答案</li>
+    <li>输入分数和评语 → <strong>提交评分</strong></li>
+  </ol>
+
+  <h3>4.3 使用 AI 辅助评分</h3>
+  <p>在评分页面点击 <strong>AI 评分建议</strong>，系统会显示 AI 给出的分数和建议。你可以<strong>采纳</strong>或<strong>自己打分</strong>。</p>
+  <div class="warn">AI 评分仅供参考，最终分数由你决定。如果 AI 评分置信度低（显示橙色标签），建议人工复核。</div>
+
+  <h3>4.4 打回重交</h3>
+  <ol>
+    <li>在评分页面点击 <strong>打回重交</strong></li>
+    <li>输入打回原因（如"答案不完整，请补充"）</li>
+    <li>学生会收到通知，修改后重新提交</li>
+  </ol>
+
+  <h3>4.5 导出成绩</h3>
+  <p>点击 <strong>导出成绩</strong>，系统生成 Excel 表格，包含：全班得分、每道题得分率、平均分等。</p>
+</section>
+
+<section class="section" id="stats">
+  <h2>五、查看成绩分析</h2>
+
+  <h3>5.1 单次任务分析</h3>
+  <p>任务发布后，点击任务标题 → <strong>成绩统计</strong>：</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th>你能看到</th><th>有什么用</th></tr>
+    <tr><td>分数分布图</td><td>一眼看出这次考试难不难（得分集中在低分段说明太难了）</td></tr>
+    <tr><td>每道题得分率</td><td>哪道题全班都不会？下次重点讲</td></tr>
+  </table>
+  </div>
+
+  <h3>5.2 成绩趋势</h3>
+  <p><strong>数据中心</strong> → <strong>成绩趋势</strong>：查看某个班级多次考试的成绩变化曲线。<br>
+  曲线向上 = 进步，向下 = 下滑，需要关注。</p>
+
+  <h3>5.3 知识掌握度分析</h3>
+  <p><strong>精准教学</strong> → <strong>知识图谱</strong>：<br>
+  每个知识点显示全班平均掌握度（百分比）：<br>
+  <span style="color:var(--danger)">●</span> 红色 = 薄弱（&lt; 60%），需要补课<br>
+  <span style="color:var(--success)">●</span> 绿色 = 已达标（&gt; 80%），可以跳过</p>
+</section>
+
+<section class="section" id="ai">
+  <h2>六、使用 AI 辅助出题</h2>
+
+  <h3>6.1 智能生成题目</h3>
+  <ol>
+    <li><strong>AI 助手</strong> → <strong>智能出题</strong></li>
+    <li>填写出题要求：</li>
+  </ol>
+  <div class="table-wrap">
+  <table>
+    <tr><th>字段</th><th>示例</th></tr>
+    <tr><td>知识点</td><td>"Python 循环结构"</td></tr>
+    <tr><td>年级</td><td>高一</td></tr>
+    <tr><td>题型</td><td>单选 + 判断 + 填空</td></tr>
+    <tr><td>题目数量</td><td>15 题</td></tr>
+    <tr><td>难度</td><td>中等</td></tr>
+    <tr><td>参考教材（可选）</td><td>上传教案或教材内容，AI 会据此出题</td></tr>
+  </table>
+  </div>
+  <p>3. 点击 <strong>开始生成</strong>（等待 30-60 秒）</p>
+  <p>4. 预览后你可以：✅ 全部采纳 / ✏️ 手动修改 / ❌ 删除 / 🔄 重新生成</p>
+
+  <div class="tip">第一次用建议先少量生成（5 题），看看质量再决定要不要批量出题。</div>
+
+  <h3>6.2 生成诊断报告</h3>
+  <p><strong>精准教学</strong> → <strong>生成报告</strong>：输入学生姓名，系统自动分析该学生的薄弱知识点，生成带雷达图和个性化建议的报告。</p>
+
+  <h3>6.3 生成巩固练习</h3>
+  <p>在学生报告页面点击 <strong>生成巩固练习</strong>，AI 会根据薄弱知识点自动出题，帮助学生针对性练习。</p>
+</section>
+
+<section class="section" id="report">
+  <h2>七、查看学生学情报告</h2>
+
+  <h3>7.1 单个学生报告</h3>
+  <ol>
+    <li><strong>学生管理</strong> → <strong>学生列表</strong></li>
+    <li>点击学生名字，可以看到：</li>
+  </ol>
+  <div class="table-wrap">
+  <table>
+    <tr><th>内容</th><th>说明</th></tr>
+    <tr><td>各科成绩</td><td>最近考试的成绩和排名</td></tr>
+    <tr><td>作业完成率</td><td>这个学生作业交得及时吗</td></tr>
+    <tr><td>课堂表现</td><td>出勤、回答问题情况</td></tr>
+    <tr><td>成长轨迹</td><td>一学期以来的进步曲线</td></tr>
+    <tr><td>偏科分析</td><td>哪科强哪科弱，用雷达图展示</td></tr>
+  </table>
+  </div>
+
+  <h3>7.2 全班学情总览</h3>
+  <p><strong>数据中心</strong> → <strong>班级总览</strong>：全班成绩分布、各科平均分对比、作业提交率统计、知识点掌握度热力图。</p>
+</section>
+
+<section class="section" id="class">
+  <h2>八、管理班级和学生</h2>
+
+  <h3>8.1 查看班级</h3>
+  <p><strong>班级管理</strong> → <strong>我的班级</strong>：查看你教的班级和学生名单。</p>
+
+  <h3>8.2 添加学生</h3>
+  <p>批量导入请联系系统管理员。单个添加：<strong>班级管理</strong> → 选择班级 → <strong>+ 添加学生</strong> → 输入姓名和学号。</p>
+
+  <h3>8.3 重置学生密码</h3>
+  <p><strong>学生管理</strong> → 找到学生 → <strong>重置密码</strong>，密码重置为 <code>123456</code>。</p>
+</section>
+
+<section class="section" id="faq">
+  <h2>九、常见问题</h2>
+
+  <h3>Q：我布置的作业学生说看不到？</h3>
+  <p>可能原因：作业还是"草稿"状态 / 没有勾选正确的班级 / 任务还没到开始时间。<br>
+  检查任务状态，如果是"草稿"就点击发布。</p>
+
+  <h3>Q：学生交错了作业能撤回吗？</h3>
+  <p>可以。在任务详情页 → <strong>提交情况</strong> → 找到该学生 → 点击 <strong>打回重交</strong>。</p>
+
+  <h3>Q：AI 出的题有错误怎么办？</h3>
+  <p>AI 偶尔会出错。建议生成后先预览再添加到试卷。如果发现错误可以直接编辑修改，也可以重新生成。</p>
+
+  <h3>Q：我想把成绩发给家长？</h3>
+  <p>在成绩页面点击 <strong>导出 Excel</strong>，下载后通过微信或家校群发给家长。系统也提供家长端（需单独开通）。</p>
+
+  <h3>Q：上课时想让学生做几道题，来不及提前准备？</h3>
+  <p>用 <strong>课堂互动</strong> 功能：<strong>课堂管理</strong> → <strong>发起互动</strong> → <strong>随堂练习</strong>，输入 1-3 道题，学生手机端立刻收到。作答后系统自动统计正确率。</p>
+</section>
+
+<section class="section" id="roles">
+  <h2>附录：各角色登录入口</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>角色</th><th>登录方式</th><th>能看到什么</th></tr>
+    <tr><td>教师</td><td>电脑浏览器</td><td>任务管理、批改、成绩分析、AI 助手</td></tr>
+    <tr><td>学生</td><td>电脑或手机浏览器</td><td>我的作业、考试、成绩、错题本</td></tr>
+    <tr><td>家长</td><td>手机浏览器</td><td>孩子成绩、作业完成情况</td></tr>
+    <tr><td>管理员</td><td>电脑浏览器</td><td>系统设置、教师管理、学生导入、全校数据看板</td></tr>
+    <tr><td>巡视员</td><td>电脑浏览器</td><td>全校教学数据看板、巡课记录</td></tr>
+  </table>
+  </div>
+  <br>
+  <div class="info">如有其他问题，请联系学校系统管理员。</div>
+</section>
+
+</body>
+</html>

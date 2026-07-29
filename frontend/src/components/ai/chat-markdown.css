@@ -1,0 +1,194 @@
+/* ══════════════════════════════════════════════
+   Markdown 渲染样式 —— 从 ChatPanel.vue 提取
+   ══════════════════════════════════════════════ */
+
+.msg-text :deep(*) {
+  line-height: 1.9;
+}
+.msg-text :deep(h1) {
+  font-size: 21px;
+  font-weight: 700;
+  margin: 24px 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--primary-color);
+  color: var(--text-primary);
+}
+.msg-text :deep(h2) {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 22px 0 12px;
+  color: var(--primary-color);
+}
+.msg-text :deep(h3) {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 18px 0 10px;
+  color: var(--text-primary);
+}
+.msg-text :deep(h4),
+.msg-text :deep(h5),
+.msg-text :deep(h6) {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 16px 0 8px;
+}
+.msg-text :deep(p) {
+  margin: 0 0 12px;
+}
+.msg-text :deep(p:last-child) {
+  margin-bottom: 0;
+}
+.msg-text :deep(strong) {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.msg-text :deep(em) {
+  font-style: italic;
+}
+.msg-text :deep(a) {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+.msg-text :deep(ul),
+.msg-text :deep(ol) {
+  padding-left: 24px;
+  margin: 10px 0 14px;
+}
+.msg-text :deep(li) {
+  margin-bottom: 6px;
+}
+.msg-text :deep(li > ul),
+.msg-text :deep(li > ol) {
+  margin: 6px 0;
+}
+.msg-text :deep(hr) {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 20px 0;
+}
+
+/* 行内代码 */
+.msg-text :deep(code) {
+  background: var(--bg-section);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: 'Consolas', 'JetBrains Mono', monospace;
+  color: var(--el-color-danger);
+}
+/* 代码块容器 */
+.msg-text :deep(.code-block-wrapper) {
+  margin: 14px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 0.5px solid var(--border-color);
+}
+.msg-text :deep(.code-block-header) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 14px;
+  background: var(--bg-section);
+  font-size: 12px;
+  color: var(--text-secondary);
+  border-bottom: 0.5px solid var(--border-color);
+}
+.msg-text :deep(.code-copy-btn) {
+  padding: 2px 10px;
+  border: 0.5px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-color);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.15s;
+}
+.msg-text :deep(.code-copy-btn:hover) {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.msg-text :deep(.code-block-wrapper pre) {
+  background: var(--bg-code-block, #0d1117);
+  padding: 14px 16px;
+  margin: 0;
+  border-radius: 0;
+  overflow-x: auto;
+  border: none;
+}
+.msg-text :deep(.code-block-wrapper pre code) {
+  background: transparent;
+  padding: 0;
+  color: var(--text-code-block, #c9d1d9);
+  font-size: 13px;
+}
+/* 普通 pre（非代码块容器内） */
+.msg-text :deep(pre:not(.code-block-wrapper pre)) {
+  background: var(--bg-section);
+  padding: 14px 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 14px 0;
+  border: 0.5px solid var(--border-color);
+}
+
+/* 表格 — 独立 wrapper 防溢出 */
+.msg-text :deep(.table-wrapper) {
+  display: block;
+  overflow-x: auto;
+  margin: 14px 0;
+  -webkit-overflow-scrolling: touch;
+}
+.msg-text :deep(.table-wrapper table) {
+  margin: 0;
+  min-width: 100%;
+}
+.msg-text :deep(table) {
+  border-collapse: collapse;
+  margin: 14px 0;
+  width: 100%;
+  font-size: 14px;
+}
+.msg-text :deep(th) {
+  background: var(--bg-section);
+  font-weight: 700;
+  padding: 10px 14px;
+  text-align: left;
+  border: 0.5px solid var(--border-color);
+  white-space: nowrap;
+}
+.msg-text :deep(td) {
+  padding: 8px 14px;
+  border: 0.5px solid var(--border-color);
+}
+.msg-text :deep(tr:nth-child(even) td) {
+  background: var(--bg-hover);
+}
+
+/* 引用块 */
+.msg-text :deep(blockquote) {
+  border-left: 3px solid var(--primary-color);
+  margin: 14px 0;
+  padding: 10px 18px;
+  background: var(--bg-section);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  color: var(--text-secondary);
+}
+.msg-text :deep(blockquote p) {
+  margin: 6px 0;
+}
+
+/* KaTeX / 数学公式 */
+.msg-text :deep(.katex-display) {
+  margin: 14px 0;
+  overflow-x: auto;
+  overflow-y: visible;
+}
+.msg-text :deep(.katex) {
+  font-size: 1.15em;
+  line-height: 1.2;
+}
+/* 暗色模式 */
+.dark .msg-text :deep(.katex),
+html.dark .msg-text :deep(.katex) {
+  color: #e0e0e0;
+}

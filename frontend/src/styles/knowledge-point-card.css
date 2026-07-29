@@ -1,0 +1,26 @@
+/* 知识点对比卡片 — ComparisonDashboard 和 DiagnosisReport 共用 */
+.cd-kp-card {
+  border: 0.5px solid var(--border-base, rgba(0,0,0,0.08));
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  transition: background 0.2s;
+}
+.cd-kp-card--hl { background: #fff8e1; border-color: #ffc107; }
+
+.cd-kp-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.cd-kp-head-left { display: flex; align-items: center; gap: 8px; }
+.cd-kp-name { font-size: var(--fs-md); font-weight: 600; color: var(--text-primary, #1d1d1f); }
+
+.cd-kp-ranks { display: flex; flex-direction: column; gap: 6px; }
+.cd-kp-rank-item { display: flex; align-items: center; justify-content: space-between; font-size: var(--fs-sm); }
+.cd-kp-rank-left { display: flex; align-items: center; gap: 8px; min-width: 180px; }
+.cd-kp-rank-pos { font-weight: 700; color: var(--text-secondary, #86868b); width: 18px; text-align: center; }
+.cd-kp-rank-cls { color: var(--text-primary, #1d1d1f); }
+.cd-kp-rank-right { display: flex; align-items: center; gap: 8px; flex: 1; }
+.cd-kp-rank-delta { min-width: 50px; text-align: right; font-size: var(--fs-xs); font-weight: 500; }
+.cd-kp-rank-track { flex: 1; height: 10px; background: var(--bg-secondary, #f0f0f2); border-radius: 5px; overflow: hidden; }
+.cd-kp-rank-fill { height: 100%; border-radius: 5px; min-width: 2px; transition: width 0.3s; }
+.cd-kp-rank-pct { min-width: 42px; text-align: right; font-size: var(--fs-sm); }
+
+.cd-kp-insight { font-size: var(--fs-xs); color: var(--text-regular, #3a3a3c); line-height: 1.6; padding-top: 6px; border-top: 1px dashed var(--border-base, rgba(0,0,0,0.08)); }

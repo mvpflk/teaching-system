@@ -1,0 +1,16 @@
+import request from '@/utils/request'
+
+export const getEnglishDashboard = () => request({ url: '/precision/english/dashboard', method: 'get' })
+export const getDailyTask = () => request({ url: '/precision/english/daily-task', method: 'get' })
+export const submitDrillAnswer = (data) => request({ url: '/precision/english/drill/submit', method: 'post', data })
+export const completeDrill = (data) => request({ url: '/precision/english/drill/complete', method: 'post', data })
+export const getGrammarTree = () => request({ url: '/precision/english/grammar-tree', method: 'get' })
+export const getGrammarPractice = (nodeId) => request({ url: '/precision/english/grammar-practice', method: 'get', params: { nodeId } })
+export const useFreezeCard = () => request({ url: '/precision/english/freeze-card/use', method: 'post' })
+export const getFreezeCardStatus = () => request({ url: '/precision/english/freeze-card/status', method: 'get' })
+export const getEnglishRanking = () => request({ url: '/precision/english/ranking', method: 'get' })
+export const getVocabBook = () => request({ url: '/precision/english/vocab-book', method: 'get' })
+export const getTeacherEnglishStudents = (classId) => request({ url: '/precision/teacher/english/students', method: 'get', params: { classId } })
+export const getTeacherEnglishDetail = (studentId) => request({ url: `/precision/teacher/english/student/${studentId}`, method: 'get' })
+export const remindEnglishStudents = (classId, message) => request({ url: '/precision/teacher/english/remind', method: 'post', data: { classId, message } })
+export const getTeacherEnglishReport = (classId) => request({ url: '/precision/teacher/english/report', method: 'get', params: { classId } })

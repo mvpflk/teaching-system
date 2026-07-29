@@ -1,0 +1,275 @@
+# ============================================
+# 职高计算机教学管理系统 - 应用配置
+# ============================================
+
+spring:
+  application:
+    name: teaching-system
+  cache:
+    type: redis     # 生产用 Redis，本地开发用 application-local.yml 排除后自动降级
+
+  devtools:
+    livereload:
+      enabled: false
+    restart:
+      enabled: false
+
+  # 数据库配置（生产环境通过环境变量覆盖）
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL:jdbc:mysql://localhost:3306/teaching_system?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+    hikari:
+      # 本地开发用轻量配置
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 5000
+
+  # Flyway 数据库迁移
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    baseline-version: 45  # 与生产(application-prod.yml)对齐：V000~V045 视为已应用；新迁移必须从 V046 开始。V044/V045 在基线下不会自动执行(V044 效果已在 init.sql 种子中)
+  # 禁用 Spring 默认 schema 初始化（由 Flyway 接管）
+  sql:
+    init:
+      mode: never
+
+  # Redis配置（可选组件，未配置则自动跳过）
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: 0
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
+
+  # 文件上传配置
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 80MB
+
+  # JSON配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+      fail-on-empty-beans: false
+
+# ============================================
+# MyBatis-Plus配置
+# ============================================
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.school.teaching.entity
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    cache-enabled: false
+
+# mysqldump 路径（生产环境改为绝对路径，如 /usr/bin/mysqldump）
+mysqldump:
+  path: ${MYSQLDUMP_PATH:mysqldump}
+
+# CORS 允许的前端源（生产环境设 CORS_ORIGINS=https://your-domain.com）
+cors:
+  allowed-origins: ${CORS_ORIGINS:http://localhost:3000}
+  ngrok-origin: ${CORS_NGROK_ORIGIN:http://*.gnway.cc:*}
+
+# 公网测试模式（true 时额外允许花生壳域名跨域）
+public:
+  test:
+    mode: ${PUBLIC_TEST_MODE:false}
+
+# ============================================
+# JWT配置
+# ============================================
+jwt:
+  secret: ${JWT_SECRET:}   # 未设置环境变量时启动将失败（强制安全）
+  expiration: ${JWT_EXPIRATION:604800000}  # 7天（生产通过环境变量覆盖为24小时）
+  header: Authorization
+  prefix: Bearer
+
+# ============================================
+# 服务器配置
+# ============================================
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+# ============================================
+# 日志配置
+# ============================================
+logging:
+  level:
+    root: INFO
+    com.school.teaching: DEBUG
+    com.school.teaching.mapper: DEBUG
+    com.school.teaching.aspect.ApiLogAspect: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/teaching-system.log
+    max-size: 100MB
+    max-history: 30
+
+# ============================================
+# Knife4j API文档配置
+# ============================================
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+  openapi:
+    title: 教学管理系统接口文档
+    description: 职高计算机教学管理系统API接口文档
+    version: 1.0.0
+    contact:
+      name: 系统管理员
+      email: admin@school.edu
+
+# ============================================
+# 自定义业务配置
+# ============================================
+teaching:
+  # 上传目录（生产环境设为绝对路径如 /data/uploads，避免放在Web根目录下）
+  upload-dir: ${UPLOAD_DIR:uploads}
+  # 作业配置
+  homework:
+    late-hours-limit: 24  # 允许迟交的小时数
+    late-penalty: 0.8     # 迟交扣分比例
+  # 考试配置
+  exam:
+    max-duration: 180     # 最大考试时长(分钟)
+    min-duration: 10      # 最小时长(分钟)
+    max-cheat-warnings: 3 # 最大切屏警告次数
+  # 积分配置
+  credit:
+    leaderboard-enabled: true  # 是否启用排行榜
+    daily-sign-reset-hour: 4   # 签到重置小时
+  # AI 服务配置 — provider 决定使用哪个网关 (openai | deepseek)，默认 openai
+  ai:
+    provider: ${AI_PROVIDER:openai}
+    openai:
+      api-key: ${OPENAI_API_KEY:}
+      base-url: ${OPENAI_BASE_URL:https://api.openai.com/v1}
+      model: ${OPENAI_MODEL:gpt-4o-mini}
+      timeout-seconds: 30
+    deepseek:
+      api-key: ${DEEPSEEK_API_KEY:}
+      base-url: ${DEEPSEEK_BASE_URL:https://api.deepseek.com/v1}
+      model: ${DEEPSEEK_MODEL:deepseek-v4-pro}
+      timeout-seconds: 60
+    teacher:
+      daily-quota: 20  # 教师每日AI生成配额
+    question:
+      mix-ratio: 0.3   # V055: 题库混搭比例(0.0~1.0), 0.3=30%来自题库
+      mix-max-bank: 15 # V055: 单次混搭最多从题库抽取数量
+    grading:
+      enabled: false   # AI辅助评分开关(默认关闭)
+    safety:
+      output-blacklist: "色情,淫秽,赌博,毒品,枪支,颠覆国家,分裂国家,恐怖主义,邪教,暴力恐怖,极端主义,儿童色情,自杀教程,制毒,制造爆炸物"
+      # 学生心理危机检测关键词（逗号分隔，默认值: 自杀,自残,不想活,想死,活不下去,结束生命,轻生,没意思活着,死了一了百了）
+      # 如需增删直接修改此列表即可
+      # crisis-keywords: "自杀,自残,不想活,想死,活不下去,结束生命,轻生,没意思活着,死了一了百了"
+
+# ── Agent 模块配置 ──
+agent:
+  max-concurrent-loops: 5       # 最大并发 Agent 循环数
+  rate-limit:
+    teacher: 20                 # 教师每日免费调用次数
+    student: 10                 # 学生每日免费调用次数
+  max-steps: 10                 # 单次 Agent 对话最大工具调用步数
+  total-timeout-ms: 180000      # 单次 Agent 对话总超时（毫秒）
+  api-timeout-ms: 30000         # 单次 API 调用超时（毫秒）
+  token-warning: 28000          # Token 警告阈值，超过后触发压缩
+  token-max: 32000              # Token 上限（模型 context window）
+  session-ttl-days: 7           # 会话过期天数
+  sql-limit: 500                # 工具查询 SQL LIMIT 上限
+  ppt-dir: /tmp/teaching-ppt/   # PPT 生成文件存储目录
+  core-pool-size: 3             # 线程池核心线程数
+  max-pool-size: 12             # 线程池最大线程数（2C4G 安全上限）
+  queue-capacity: 20            # 线程池工作队列容量
+  # SSE 端点允许的 Origin（空=渐进式安全：仅日志警告不拦截）
+  # 部署后配置为实际域名，如: https://your-domain.com
+  # allowed-origins:
+
+# ── 登录限流配置（用户级/IP级混合限流） ──
+login:
+  rate-limit:
+    max-failures-per-user: 5       # 单个用户ID在窗口内最大失败次数
+    block-minutes-per-user: 5      # 用户级封禁时长（分钟）
+    max-failures-per-ip: 50        # 同一IP下所有用户失败总和上限
+    block-minutes-per-ip: 5        # IP级封禁时长（分钟）
+    window-seconds: 60             # 失败计数窗口（秒）
+
+# ── API 请求日志配置 ──
+api-log:
+  enabled: true                    # 总开关，false 时完全禁用 ApiLogAspect
+  exclude-paths: /api/health,/api/doc.html,/api/v3/api-docs,/actuator/health,/swagger-resources
+  response-max-length: 500         # 响应体最大记录长度（字符）
+
+# ── Actuator 配置（健康检查 + 监控指标 + 线程转储） ──
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,threaddump,env,loggers,prometheus
+      base-path: /actuator
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  health:
+    redis:
+      enabled: true       # 开启 RedisHealthIndicator 自动配置
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+    env:
+      show-values: when-authorized  # 敏感值仅授权用户可见
+    configprops:
+      show-values: when-authorized
+
+# ── 监控采集开关（每 5 分钟写入 logs/monitor.log） ──
+monitor:
+  log-enabled: true
+
+# ── Resilience4j AI熔断配置 ──
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 30s
+        permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true
+    instances:
+      aiGateway:
+        base-config: default

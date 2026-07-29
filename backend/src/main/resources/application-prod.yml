@@ -1,0 +1,115 @@
+# ============================================
+# 生产环境配置
+# 启动: java -jar app.jar --spring.profiles.active=prod
+# 需设环境变量: DB_URL, DB_USERNAME, DB_PASSWORD, JWT_SECRET, CORS_ORIGINS
+# ============================================
+
+# 覆盖开发环境通配CORS为具体域名
+cors:
+  allowed-origins: ${CORS_ORIGINS}
+
+# ============================================
+# 生产日志：WARN以上 + 按天滚动 + 30天保留 + gz压缩
+# ============================================
+logging:
+  level:
+    root: WARN
+    com.school.teaching: INFO
+    com.school.teaching.mapper: WARN
+    com.school.teaching.security: INFO
+  file:
+    name: ${LOG_FILE:logs/teaching-system.log}
+  logback:
+    rollingpolicy:
+      file-name-pattern: ${LOG_FILE:logs/teaching-system}.%d{yyyy-MM-dd}.%i.log.gz
+      max-history: 30
+      max-file-size: 100MB
+      total-size-cap: 5GB
+      clean-history-on-start: false
+
+# 生产环境关闭API文档
+knife4j:
+  enable: false
+
+# ============================================
+# Spring 全面生产配置
+# ============================================
+spring:
+  # Flyway 生产配置 — baseline=45，V000~V045 视为已应用；生产首个真正执行的迁移为 V046。
+  # 注意：baseline 已写入 flyway_schema_history，改此值不会追溯执行 V044/V045。
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 45
+
+  # 数据库连接池 — 生产调优
+  datasource:
+    hikari:
+      maximum-pool-size: ${DB_POOL_SIZE:50}
+      minimum-idle: ${DB_POOL_MIN_IDLE:5}
+      connection-timeout: ${DB_POOL_TIMEOUT:10000}
+      idle-timeout: 600000
+      max-lifetime: 3600000
+      keepalive-time: 300000
+      validation-timeout: 3000
+      leak-detection-threshold: 30000
+      pool-name: TeachingSystemPool
+      register-mbeans: true
+
+  # Redis 缓存（生产必需）
+  cache:
+    type: redis
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+
+  # 文件上传 — 生产限大小
+  servlet:
+    multipart:
+      max-file-size: ${UPLOAD_MAX_SIZE:20MB}
+      max-request-size: ${UPLOAD_MAX_REQUEST:80MB}
+
+teaching:
+  upload-dir: ${UPLOAD_DIR:/data/uploads}
+  ai:
+    safety:
+      output-blacklist: "色情,淫秽,赌博,毒品,枪支,颠覆国家,分裂国家,恐怖主义,邪教,暴力恐怖,极端主义,儿童色情,自杀教程,制毒,制造爆炸物"
+    grading:
+      enabled: true   # AI辅助评分启用(生产)
+
+# mysqldump 绝对路径
+mysqldump:
+  path: ${MYSQLDUMP_PATH:/usr/bin/mysqldump}
+
+# JWT — 生产环境必须通过环境变量设置
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION:86400000}  # 24小时
+
+# Actuator — 生产暴露 health/prometheus/metrics，详情仅授权用户可见
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+      slo:
+        http.server.requests: 10ms,50ms,100ms,200ms,500ms,1s,2s,5s
+  endpoint:
+    health:
+      show-details: when-authorized
+      show-components: when-authorized

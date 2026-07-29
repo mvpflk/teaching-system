@@ -1,0 +1,266 @@
+{
+  "dashboard": {
+    "uid": "hikaricp-monitor",
+    "title": "HikariCP 连接池监控",
+    "description": "TeachingSystemPool 连接池状态：活跃连接、等待连接、总连接数、连接获取时间",
+    "tags": ["database", "monitoring"],
+    "timezone": "browser",
+    "schemaVersion": 38,
+    "refresh": "30s",
+    "panels": [
+      {
+        "id": 1,
+        "title": "活跃连接数",
+        "type": "stat",
+        "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+        "gridPos": {"x": 0, "y": 0, "w": 6, "h": 5},
+        "targets": [
+          {
+            "expr": "hikaricp_connections_active{pool=\"TeachingSystemPool\"}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"color": "green", "value": null},
+                {"color": "yellow", "value": 30},
+                {"color": "red", "value": 45}
+              ]
+            },
+            "mappings": []
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "textMode": "auto",
+          "orientation": "auto"
+        }
+      },
+      {
+        "id": 2,
+        "title": "等待连接数",
+        "type": "stat",
+        "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+        "gridPos": {"x": 6, "y": 0, "w": 6, "h": 5},
+        "targets": [
+          {
+            "expr": "hikaricp_connections_pending{pool=\"TeachingSystemPool\"}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"color": "green", "value": null},
+                {"color": "yellow", "value": 3},
+                {"color": "red", "value": 8}
+              ]
+            }
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 3,
+        "title": "连接池使用率",
+        "type": "gauge",
+        "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+        "gridPos": {"x": 12, "y": 0, "w": 6, "h": 5},
+        "targets": [
+          {
+            "expr": "hikaricp_connections_active{pool=\"TeachingSystemPool\"} / hikaricp_connections_max{pool=\"TeachingSystemPool\"} * 100",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "min": 0,
+            "max": 100,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"color": "green", "value": null},
+                {"color": "yellow", "value": 60},
+                {"color": "red", "value": 85}
+              ]
+            }
+          }
+        },
+        "options": {
+          "orientation": "auto",
+          "showThresholdLabels": true,
+          "showThresholdMarkers": true
+        }
+      },
+      {
+        "id": 4,
+        "title": "总连接数（活跃+空闲+等待）",
+        "type": "stat",
+        "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+        "gridPos": {"x": 18, "y": 0, "w": 6, "h": 5},
+        "targets": [
+          {
+            "expr": "hikaricp_connections{pool=\"TeachingSystemPool\"}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"color": "green", "value": null},
+                {"color": "yellow", "value": 40},
+                {"color": "red", "value": 48}
+              ]
+            }
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "textMode": "value_and_name"
+        }
+      },
+      {
+        "id": 5,
+        "title": "连接数趋势 (活跃/空闲/等待)",
+        "type": "timeseries",
+        "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+        "gridPos": {"x": 0, "y": 5, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "hikaricp_connections_active{pool=\"TeachingSystemPool\"}",
+            "legendFormat": "活跃",
+            "refId": "A"
+          },
+          {
+            "expr": "hikaricp_connections_idle{pool=\"TeachingSystemPool\"}",
+            "legendFormat": "空闲",
+            "refId": "B"
+          },
+          {
+            "expr": "hikaricp_connections_pending{pool=\"TeachingSystemPool\"}",
+            "legendFormat": "等待",
+            "refId": "C"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "color": {"mode": "palette-classic"},
+            "custom": {"lineWidth": 2, "fillOpacity": 10, "spanNulls": true}
+          }
+        },
+        "options": {
+          "legend": {"showLegend": true, "placement": "bottom", "displayMode": "table"},
+          "tooltip": {"mode": "multi"}
+        }
+      },
+      {
+        "id": 6,
+        "title": "连接获取时间 (P50/P95 ms)",
+        "type": "timeseries",
+        "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+        "gridPos": {"x": 12, "y": 5, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "hikaricp_connections_acquire_seconds{pool=\"TeachingSystemPool\",quantile=\"0.95\"} * 1000",
+            "legendFormat": "P95 获取",
+            "refId": "A"
+          },
+          {
+            "expr": "hikaricp_connections_acquire_seconds{pool=\"TeachingSystemPool\",quantile=\"0.5\"} * 1000",
+            "legendFormat": "P50 获取",
+            "refId": "B"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "ms",
+            "color": {"mode": "palette-classic"},
+            "custom": {"lineWidth": 2, "fillOpacity": 5, "spanNulls": true}
+          }
+        },
+        "options": {
+          "legend": {"showLegend": true, "placement": "bottom"},
+          "tooltip": {"mode": "multi"}
+        }
+      },
+      {
+        "id": 7,
+        "title": "连接超时总次数 (累计)",
+        "type": "stat",
+        "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+        "gridPos": {"x": 0, "y": 13, "w": 12, "h": 4},
+        "targets": [
+          {
+            "expr": "hikaricp_connections_timeout_total{pool=\"TeachingSystemPool\"}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"color": "green", "value": null},
+                {"color": "red", "value": 1}
+              ]
+            }
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 8,
+        "title": "最大连接数 (配置值)",
+        "type": "stat",
+        "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+        "gridPos": {"x": 12, "y": 13, "w": 12, "h": 4},
+        "targets": [
+          {
+            "expr": "hikaricp_connections_max{pool=\"TeachingSystemPool\"}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"color": "blue", "value": null}
+              ]
+            }
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "textMode": "value_and_name"
+        }
+      }
+    ]
+  },
+  "overwrite": true
+}

@@ -1,0 +1,42 @@
+groups:
+  - name: teaching_alerts
+    rules:
+      - alert: HighCPU
+        expr: system_cpu_usage{job="backend"} > 0.8
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "CPU使用率 > 80% ({{ $value | humanizePercentage }})"
+
+      - alert: CriticalCPU
+        expr: system_cpu_usage{job="backend"} > 0.95
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "CPU使用率 > 95%, 服务可能不可用"
+
+      - alert: HighDisk
+        expr: disk_free_bytes{job="backend"} / disk_total_bytes{job="backend"} < 0.15
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "磁盘剩余 < 15%"
+
+      - alert: BackendDown
+        expr: up{job="backend"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "后端服务不可达"
+
+      - alert: HighAIFailureRate
+        expr: rate(ai_call_failures_total[5m]) / rate(ai_call_total[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "AI调用失败率 > 10% (5分钟内)"

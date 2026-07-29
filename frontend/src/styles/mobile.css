@@ -1,0 +1,168 @@
+/**
+ * 移动端全局样式 — 教学管理系统 Design System
+ * 断点: < 767px · 触控规范: 44px 最小触控 · Safe Area 全局变量
+ * 注: 使用 767px 而非 768px 以避免 iPad mini（768px 横屏）误触
+ */
+
+/* ===== Safe Area CSS 变量 ===== */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+/* ===== 移动端 Design Token ===== */
+:root {
+  --mobile-page-padding: 16px;
+  --mobile-card-gap: 8px;
+  --mobile-touch-min: 44px;
+  --mobile-input-height: 48px;
+  --mobile-bottom-bar-height: 56px;
+}
+
+/* ===== 触控全局规则 ===== */
+@media (max-width: 767px) {
+  /* 触控目标 44px 最小标准 */
+  .el-button,
+  .el-radio,
+  .el-checkbox,
+  .el-link,
+  .nav-item,
+  .el-dropdown-item,
+  [role='button'] {
+    min-height: var(--mobile-touch-min);
+    min-width: var(--mobile-touch-min);
+  }
+
+  .el-button:active,
+  .el-radio:active,
+  .el-checkbox:active,
+  .el-link:active,
+  .nav-item:active {
+    transform: scale(0.96);
+    transition: transform 0.1s ease;
+  }
+
+  /* 表单全宽 */
+  .el-select,
+  .el-input,
+  .el-date-picker,
+  .el-cascader,
+  .el-autocomplete {
+    width: 100% !important;
+  }
+
+  .el-form-item {
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .el-form--inline .el-form-item {
+    display: block;
+    margin-right: 0;
+  }
+
+  /* 筛选栏堆叠 */
+  .filter-bar,
+  .search-form {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px;
+  }
+
+  /* 弹窗自适应 */
+  .el-dialog {
+    width: 92% !important;
+    max-width: 500px;
+    margin-top: 10vh !important;
+  }
+
+  .el-message-box {
+    width: 85% !important;
+  }
+
+  /* 表格横向滚动兜底 */
+  .el-table .el-table__body-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .page-container {
+    padding: var(--mobile-page-padding);
+  }
+
+  .el-card {
+    margin-bottom: var(--mobile-card-gap);
+  }
+
+  .el-input__inner,
+  .el-select .el-input__inner {
+    height: var(--mobile-input-height);
+    line-height: var(--mobile-input-height);
+  }
+
+  /* 触控目标补充缺口 */
+  .el-tag__close {
+    min-width: var(--mobile-touch-min);
+    min-height: var(--mobile-touch-min);
+  }
+
+  .mobile-bottom-nav .nav-item {
+    min-height: var(--mobile-touch-min);
+    min-width: calc(var(--mobile-touch-min) + 8px);
+    padding: 8px 12px;
+  }
+
+  /* 隐藏桌面专属元素 */
+  .wb-shortcuts {
+    display: none;
+  }
+
+  /* 图片响应式 */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* 字体缩放防溢出 — 系统放大字体时防止固定高度元素溢出 */
+  .el-button,
+  .el-tag,
+  .el-badge__content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* BBS 编辑器工具栏溢出处理 */
+  .bbs-mobile-toolbar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap !important;
+  }
+
+  /* ExamPrepBanner 移动端溢出 */
+  .epb-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+}
+
+/* ===== 滚动穿透防止（全局，不在 @media 内） ===== */
+body.dialog-open,
+body.dialog-open .layout-container {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ===== 移动端触控反馈（全局） ===== */
+@media (hover: none) and (pointer: coarse) {
+  .mobile-card:active,
+  .nav-item:active,
+  .el-button:not(.is-disabled):active {
+    transform: scale(0.97);
+    transition: transform 0.1s ease;
+  }
+}

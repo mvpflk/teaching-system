@@ -1,0 +1,29 @@
+{
+  "name": "teaching-system-mcp-server",
+  "version": "1.0.0",
+  "description": "教学管理系统 MCP 服务器 - 提供数据库查询、文件系统、API集成、教学专用功能",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "teaching-mcp-server": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "inspector": "npx @modelcontextprotocol/inspector node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "mysql2": "^3.6.0",
+    "zod": "^3.22.0",
+    "dotenv": "^16.3.0",
+    "axios": "^1.6.0",
+    "glob": "^10.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "tsx": "^4.6.0",
+    "typescript": "^5.3.0"
+  }
+}

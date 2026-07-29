@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.school.teaching.mapper.WrongQuestionMapper">
+
+    <!-- 批量 upsert：利用唯一索引 uk_student_question 实现插入或更新 -->
+    <insert id="batchUpsert">
+        INSERT INTO wrong_questions (student_id, question_id, wrong_count, last_wrong_time, is_mastered, source_type, source_task_id)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.studentId}, #{item.questionId}, 1, NOW(), 0, #{item.sourceType}, #{item.sourceTaskId})
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+            wrong_count = wrong_count + 1,
+            last_wrong_time = NOW()
+    </insert>
+
+</mapper>

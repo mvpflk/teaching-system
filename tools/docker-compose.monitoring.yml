@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: teaching-prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.retention.time=7d"
+      - "--web.enable-lifecycle"
+      - "--web.route-prefix=/prometheus/"
+    networks:
+      - teaching-system_default
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: teaching-alertmanager
+    volumes:
+      - ./alertmanager/config.yml:/etc/alertmanager/config.yml
+    command:
+      - "--config.file=/etc/alertmanager/config.yml"
+      - "--web.route-prefix=/alertmanager/"
+    networks:
+      - teaching-system_default
+
+  loki:
+    image: grafana/loki:latest
+    container_name: teaching-loki
+    networks:
+      - teaching-system_default
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: teaching-grafana
+    networks:
+      - teaching-system_default
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=Teaching2024!
+      - GF_SERVER_ROOT_URL=http://1.14.44.172/grafana/
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+
+networks:
+  teaching-system_default:
+    external: true
