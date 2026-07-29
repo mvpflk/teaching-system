@@ -93,6 +93,12 @@ teaching-system/
 - ❌ 如果修改后提供网络服务（如部署为 SAAS），必须开源修改
 - ❌ 不能闭源分发或用于商业封装
 
+## 完整数据库（考纲/知识树/题库）
+
+本仓库代码出于隐私考虑不包含题库数据。如需含四川省对口升学考纲对照、知识树、各科目题库的完整数据库包，可在 [GitHub Releases](https://github.com/mvpflk/teaching-system/releases) 下载 `teaching-system-full-data.zip`。
+
+> 数据包免费提供。如果你觉得这个项目对你有帮助，欢迎在 Issues 中留言反馈。
+
 ## 贡献
 
 欢迎提交 Issue 和 Pull Request。
