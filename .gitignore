@@ -47,8 +47,8 @@ Thumbs.db
 # 忽略 Playwright 浏览器测试临时文件
 .playwright-mcp/
 
-# 忽略临时文件
-tmp/
+# 忽略截图目录说明文件
+docs/screenshots/README.md
 tmp_*.txt
 # 忽略根目录截图
 /*.png

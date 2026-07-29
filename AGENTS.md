@@ -22,14 +22,19 @@ cd backend && mvn test -Dtest="!CoreApiSmokeTest,!CreditServiceTest,!ClassroomSe
 
 ```
 teaching-system/
-├── backend/       # Spring Boot → com.school.teaching.*
-├── frontend/      # Vue 3 + Vite + Element Plus
-├── database/      # DDL (v2~v159) + init.sql
-├── tests/         # E2E 测试 (puppeteer-core)
-├── tools/         # MCP server (Node.js)
-├── monitoring/    # Prometheus + Grafana dashboards
-├── deploy.sh      # 生产部署脚本
-└── CLAUDE.md      # 完整架构文档（61条规则）
+├── .github/           # Issue/PR 模板 + CI 流水线
+├── backend/           # Spring Boot → com.school.teaching.*
+├── frontend/          # Vue 3 + Vite + Element Plus
+├── database/          # DDL (v2~v159) + init.sql
+├── tests/             # E2E 测试 (puppeteer-core)
+├── tools/             # MCP server (Node.js)
+├── monitoring/        # Prometheus + Grafana dashboards
+├── docs/              # 部署指南 + 教师手册
+├── deploy.sh          # 生产部署脚本
+├── CONTRIBUTING.md    # 贡献指南
+├── CODE_OF_CONDUCT.md # 行为准则
+├── SECURITY.md        # 安全策略
+└── AGENTS.md          # 项目架构文档
 ```
 
 ## ⚠️ 改动前强制检查清单（来自 30+ bug 根因，跳过 = 制造 bug）

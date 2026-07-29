@@ -1,5 +1,11 @@
 # 职高教学管理系统
 
+[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
+[![Java](https://img.shields.io/badge/Java-17-blue)](backend/pom.xml)
+[![Vue](https://img.shields.io/badge/Vue-3.4-4FC08D)](frontend/package.json)
+[![CI](https://github.com/mvpflk/teaching-system/actions/workflows/ci.yml/badge.svg)](https://github.com/mvpflk/teaching-system/actions/workflows/ci.yml)
+[![GitHub Stars](https://img.shields.io/github/stars/mvpflk/teaching-system?style=social)](https://github.com/mvpflk/teaching-system)
+
 面向中职学校的免费开源教学管理系统。含 AI 智能出题、智能批改、OCR 答题卡识别、成绩分析与知识图谱等功能。一线教师从零开发，已在真实课堂投入使用。
 
 ---
@@ -28,6 +34,23 @@ AI：DeepSeek API（智能出题/评分/OCR）
 部署：Docker Compose（MySQL + Redis + Nginx）
 监控：Prometheus + Grafana + Loki + AlertManager
 ```
+
+## 系统架构
+
+```mermaid
+graph TD
+    A[浏览器] --> B[Nginx :80]
+    B --> C[前端静态资源]
+    B --> D[后端 API :8080]
+    D --> E[(MySQL 8.0)]
+    D --> F[(Redis 7)]
+    D --> G[DeepSeek API]
+    D --> H[本地文件存储]
+    D --> I[Prometheus 指标]
+    I --> J[Grafana 仪表盘]
+```
+
+> 后端启动后，API 文档自动生成于 `/api/doc.html`（基于 Swagger/Knife4j）。
 
 ## 30 秒快速启动
 
@@ -68,6 +91,7 @@ docker-compose up -d
 
 ```
 teaching-system/
+├── .github/           # Issue/PR 模板 + CI 流水线 + Dependabot
 ├── backend/           # Spring Boot 后端
 │   ├── src/main/java  # Java 源码
 │   └── src/main/resources  # 配置 + Flyway 迁移
@@ -75,13 +99,39 @@ teaching-system/
 │   └── src/           # 源码
 ├── database/          # DDL + 种子数据
 ├── docker-compose.yml # 一键部署
-├── docs/              # 文档
-└── tools/             # 工具脚本
+├── docs/              # 文档 + 截图
+├── tools/             # 工具脚本
+├── CHANGELOG.md       # 更新日志
+├── CONTRIBUTING.md    # 贡献指南
+├── CODE_OF_CONDUCT.md # 行为准则
+├── SECURITY.md        # 安全策略
+└── LICENSE            # AGPL-3.0
 ```
 
 ## 截图
 
-> 见项目主页（待补充）
+### 教师端
+
+| 页面 | 预览 |
+|------|------|
+| 登录页 | ![登录页](docs/screenshots/login.png) |
+| 教师工作台 | ![教师工作台](docs/screenshots/dashboard.png) |
+| 任务管理 | ![任务管理](docs/screenshots/task-list.png) |
+| 题库管理 | ![题库管理](docs/screenshots/question-bank.png) |
+| AI 教学助手 | ![AI 教学助手](docs/screenshots/ai-assistant.png) |
+| 试卷库 | ![试卷库](docs/screenshots/paper-library.png) |
+| 质量分析 | ![质量分析](docs/screenshots/quality-analysis.png) |
+
+### 学生端
+
+| 页面 | 预览 |
+|------|------|
+| 学生端截图 1 | ![学生端](docs/screenshots/stu1.png) |
+| 学生端截图 2 | ![学生端](docs/screenshots/stu2.png) |
+| 学生端截图 3 | ![学生端](docs/screenshots/stu3.png) |
+| 学生端截图 4 | ![学生端](docs/screenshots/stu4.png) |
+| 学生端截图 5 | ![学生端](docs/screenshots/stu5.png) |
+| 学生端截图 6 | ![学生端](docs/screenshots/stu6.png) |
 
 ## 协议
 
@@ -101,9 +151,13 @@ teaching-system/
 
 ## 贡献
 
-欢迎提交 Issue 和 Pull Request。
+欢迎提交 Issue 和 Pull Request。详见 [`CONTRIBUTING.md`](CONTRIBUTING.md)。
+
+本项目采用 [贡献者公约](CODE_OF_CONDUCT.md)，请所有参与者遵守。
 
 如果你是一线教师，想部署这套系统但遇到困难，请先阅读 [`docs/部署指南-学校IT版.md`](docs/部署指南-学校IT版.md)。如果仍有问题，可以在 Issues 中提问。
+
+> 发现安全漏洞？请阅读 [`SECURITY.md`](SECURITY.md) 了解如何私下报告。
 
 ## 关于作者
 
