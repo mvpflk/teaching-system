@@ -1,6 +1,6 @@
 # ★ 简化镜像构建：仅安装 JRE + 复制 JAR，首次 docker-compose build 后不再重建
 # 后续部署通过 docker cp + docker restart 完成（~5s vs 120s Docker build）
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:25-jre-alpine
 RUN apk add --no-cache tzdata curl
 ENV TZ=Asia/Shanghai
 WORKDIR /app
