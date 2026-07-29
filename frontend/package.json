@@ -31,7 +31,7 @@
     "katex": "^0.16.47",
     "marked": "^18.0.4",
     "nprogress": "^0.2.0",
-    "pinia": "^2.1.7",
+    "pinia": "^4.0.2",
     "prismjs": "^1.29.0",
     "puppeteer-core": "^24.42.0",
     "vant": "^4.9.24",
