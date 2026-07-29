@@ -454,8 +454,8 @@ submissionMapper.insert(sub);
 ./deploy.sh frontend  # 仅前端 (~15s)
 ```
 
-生产服务器: `1.14.44.172` (腾讯云 2核4G)，容器化部署 (Docker Compose)
-监控: `/prometheus/graph` · `/grafana/` (admin/Teaching2024!)
+生产服务器: `your-server-ip` (腾讯云 2核4G)，容器化部署 (Docker Compose)
+监控: `/prometheus/graph` · `/grafana/` (admin/your-grafana-password)
 
 ## 关键约定
 

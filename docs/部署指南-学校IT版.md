@@ -82,7 +82,7 @@ nano .env
 
 ```bash
 # 数据库密码：自己设一个，记下来
-DB_PASSWORD=你的数据库密码（如 Teaching2024@DB）
+DB_PASSWORD=你的数据库密码（如 your-db-password）
 
 # JWT密钥：运行下面命令生成
 # 在终端执行： openssl rand -base64 32

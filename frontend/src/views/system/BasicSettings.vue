@@ -213,7 +213,7 @@
             显示在浏览器标签页和登录页面
           </p>
           <div style="display:flex;gap:12px;max-width:480px">
-            <el-input v-model="siteTitle" placeholder="南部县综合高级中学智慧教育管理系统" maxlength="50" />
+            <el-input v-model="siteTitle" placeholder="智慧教育管理系统" maxlength="50" />
             <el-button type="primary" :loading="titleSaving" @click="saveSiteTitle">保存</el-button>
           </div>
         </div>

@@ -37,8 +37,8 @@ services:
     networks:
       - teaching-system_default
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=Teaching2024!
-      - GF_SERVER_ROOT_URL=http://1.14.44.172/grafana/
+      - GF_SECURITY_ADMIN_PASSWORD=your-grafana-password
+      - GF_SERVER_ROOT_URL=http://your-server-ip/grafana/
       - GF_SERVER_SERVE_FROM_SUB_PATH=true
 
 networks:

@@ -28,7 +28,7 @@
           <path d="M9 21l3-3 3 3" />
         </svg>
       </div>
-      <h1 class="brand-title">南部县综合高级中学智慧教育管理系统</h1>
+      <h1 class="brand-title">智慧教育管理系统</h1>
       <p class="brand-subtitle">教学管理 · 在线考试 · 作业批改 · 积分激励</p>
       <div class="brand-features">
         <div class="feature-item">
